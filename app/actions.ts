@@ -1,6 +1,7 @@
 'use server';
 
 import { cookies } from 'next/headers';
+import { allInfo, countryDataType, weatherType } from './interfaces';
 
 export async function getWeatherAndCountry({
   city,
@@ -8,7 +9,7 @@ export async function getWeatherAndCountry({
 }: {
   city: string;
   name: string;
-}) {
+}): Promise<allInfo | undefined> {
   try {
     const country = await getCountryCode(city);
 
@@ -18,11 +19,11 @@ export async function getWeatherAndCountry({
     const allResults = await Promise.all([weatherPromise, countryPromise]);
     const [weatherResponse, countryResponse] = allResults;
 
-    const result = {
+    const result: allInfo = {
       name,
       city,
-      weather: weatherResponse,
-      countryData: countryResponse,
+      weather: weatherResponse as weatherType,
+      countryData: countryResponse as countryDataType,
     };
 
     const cookieStore = await cookies();
@@ -54,7 +55,7 @@ async function getCountryCode(city: string) {
   }
 }
 
-async function getWeather(city: string) {
+async function getWeather(city: string): Promise<weatherType | undefined> {
   try {
     const res = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.WEATHER_API_KEY}&units=metric`
@@ -69,7 +70,9 @@ async function getWeather(city: string) {
   }
 }
 
-async function getCountryInfo(country: string) {
+async function getCountryInfo(
+  country: string
+): Promise<countryDataType | undefined> {
   try {
     const res = await fetch(
       `https://restcountries.com/v3.1/alpha/${country}?fields=name,region,capital,currencies,languages,population,flags`,
@@ -81,7 +84,7 @@ async function getCountryInfo(country: string) {
     }
 
     const data = await res.json();
-    const selectedData = {
+    const selectedData: countryDataType = {
       name: data.name.common,
       region: data.region,
       currency: Object.keys(data.currencies)[0],
