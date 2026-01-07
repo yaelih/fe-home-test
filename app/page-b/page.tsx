@@ -2,16 +2,21 @@
 
 import { useRouter } from 'next/navigation';
 import { Button, Stack, TextField } from '@mui/material';
+import { getWeatherAndCountry } from '../actions';
 import { useCity } from '../providers';
 
 export default function PageB() {
   const router = useRouter();
   const { city } = useCity();
 
-  const handleSubmit = (formData: FormData) => {
-    const username = formData.get('username');
-    // TODO: getWheaterAndCountry({city, username});
-    router.push('/result');
+  const handleSubmit = async (formData: FormData) => {
+    const username = formData.get('username') as string;
+    try {
+      await getWeatherAndCountry({ city, name: username });
+      router.push('/result');
+    } catch (error) {
+      console.log('error', error); //TODO: handle failure
+    }
   };
 
   return (
