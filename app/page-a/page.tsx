@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Stack, TextField } from '@mui/material';
+import { useCity } from '../providers';
 
 export default function PageA() {
   const router = useRouter();
-  const [city, setCity] = useState<string>('');
+  const { city, setCity } = useCity();
   const [error, setError] = useState<boolean>(false);
 
   const handleNext = () => {
