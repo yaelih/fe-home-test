@@ -39,7 +39,7 @@ export default function PageA() {
         }}
       />
 
-      <Button variant="contained" size="medium" onClick={handleNext}>
+      <Button variant="contained" size="medium" name="next" onClick={handleNext}>
         Next
       </Button>
     </>
