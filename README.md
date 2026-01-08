@@ -1,6 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Home Test
 
-## Getting Started
+## Architectural Assumptions & Trade-offs
+### Routing & Structure
+
+- **Structure**: Since Page A, Page B, and the Result Page were defined as pages, I assumed 3 distinct routes were required.
+
+- **State Management**: Since the Server Action is triggered on Page B (and returns result to it) but the data is needed on the Result Page, I had to choose a mechanism to persist the result across navigation.
+
+**The Trade-offs of Persistence** I evaluated three main approaches for passing the action's result:
+
+1. **URL Search Params**: Simple, but has size limitations and exposes data in the URL.
+
+2. **External Storage (DB/Cache)**: Adds unnecessary complexity for this specific scope.
+
+3. **Cookies**: I chose this as a middle-ground trade-off for this challenge, as it allows server-side access on the Result Page without an external database.  
+
+<br>
+  
+
+**The "Ideal" Alternative** If the requirements were more flexible, the best trade-off would be:
+- Passing only the raw inputs (name, city) via URL params to the Result Page.
+
+- Triggering the Server Action directly on the Result Page.
+
+- **Benefits**: This avoids temporary storage, simplifies cleanup, and leverages Next.js native features like loading.tsx and error.tsx more effectively.
+
+
+<br><br>
+# Installation
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 First, run the development server:
 
@@ -16,21 +45,3 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
