@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Stack, TextField } from '@mui/material';
-import { useCity } from '../providers';
+import { Button, TextField } from '@mui/material';
+import { useCity } from '../../providers';
 
 export default function PageA() {
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function PageA() {
   };
 
   return (
-    <Stack spacing={2} sx={{ maxWidth: 400 }}>
+    <>
       <TextField
         id="city"
         label="City"
@@ -42,6 +42,6 @@ export default function PageA() {
       <Button variant="contained" size="medium" onClick={handleNext}>
         Next
       </Button>
-    </Stack>
+    </>
   );
 }

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v16-appRouter';
 import { Roboto } from 'next/font/google';
 import { ThemeProvider } from '@mui/material/styles';
-import { CityProvider } from './providers';
+import { Box } from '@mui/material';
 import theme from './theme';
 
 const roboto = Roboto({
@@ -26,7 +26,15 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <CityProvider>{children}</CityProvider>
+            <Box
+              component="main"
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              minHeight="100vh"
+            >
+              {children}
+            </Box>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
