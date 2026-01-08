@@ -34,8 +34,11 @@ export async function getWeatherAndCountry({
     });
 
     return result;
-  } catch (error) {
-    console.error('Fetch getWeatherAndCountry error', error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('getWeatherAndCountry error:', error.message);
+      throw new Error('Failed to fetch weather and country');
+    }
   }
 }
 
@@ -50,8 +53,11 @@ async function getCountryCode(city: string) {
     const data = await res.json();
     const country = data[0].country;
     return country;
-  } catch (error) {
-    console.error('Fetch getCountryCode error:', error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('getCountryCode error:', error.message);
+      throw new Error('Failed to fetch country code');
+    }
   }
 }
 
@@ -65,8 +71,11 @@ async function getWeather(city: string): Promise<weatherType | undefined> {
     }
     const data = await res.json();
     return data.weather[0];
-  } catch (error) {
-    console.error('Fetch getWeather error:', error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('getWeather error:', error.message);
+      throw new Error('Failed to fetch weather');
+    }
   }
 }
 
@@ -94,7 +103,10 @@ async function getCountryInfo(
       flagUrl: data.flags.png,
     };
     return selectedData;
-  } catch (error) {
-    console.error('fetch getCountryInfo error:', error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('getCountryInfo error:', error.message);
+      throw new Error('Failed to fetch country info');
+    }
   }
 }
