@@ -38,7 +38,7 @@ export default function PageB() {
     try {
       await getWeatherAndCountry({ city, name: username });
       router.push('/result');
-    } catch (error: unknown) {
+    } catch {
       setError(true);
     }
   };
