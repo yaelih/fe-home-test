@@ -12,6 +12,7 @@ import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { allInfo } from '../interfaces';
+import Heading from '../_components/heading';
 
 export default async function Result() {
   const cookieStore = await cookies();
@@ -47,14 +48,7 @@ export default async function Result() {
         }}
       >
         <CardContent>
-          <Typography
-            variant="h5"
-            gutterBottom
-            color="primary"
-            fontWeight="bold"
-          >
-            Result Page
-          </Typography>
+          <Heading title="Result Page" />
 
           <List dense>
             {(['name', 'city'] as const).map((key) => (

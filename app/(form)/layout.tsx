@@ -1,5 +1,6 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { CityProvider } from '../providers';
+import Heading from '../_components/heading';
 
 export default function FormLayout({
   children,
@@ -9,15 +10,7 @@ export default function FormLayout({
   return (
     <CityProvider>
       <Stack spacing={2} width="100%" maxWidth={400}>
-        <Typography
-          variant="h5"
-          gutterBottom
-          color="primary"
-          fontWeight="bold"
-          align="center"
-        >
-          Multi-Page Form
-        </Typography>
+        <Heading title="Multi-Page Form" />
         {children}
       </Stack>
     </CityProvider>
