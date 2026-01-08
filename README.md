@@ -1,5 +1,7 @@
 # Home Test
 
+Demo - [https://fe-home-test.vercel.app](https://fe-home-test.vercel.app/)
+
 ## Architectural Assumptions & Trade-offs
 ### Routing & Structure
 
